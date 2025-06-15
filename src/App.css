@@ -1,0 +1,52 @@
+/* Ensure smooth scaling transitions */
+.project-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Fix for iframe loading layout shift */
+.preview-container {
+  position: relative;
+  width: 100%;
+  background: #f3f4f6; /* Match your loading background */
+}
+
+.dark .preview-container {
+  background: #3f3f46; /* Dark mode background */
+}
+
+/* .animated-gradient {
+    background: linear-gradient(-45deg, #111827, #1f2937, #374151, #4b5563);
+    background-size: 400% 400%;
+    animation: gradient 4s ease infinite;
+}
+
+.dark .animated-gradient {
+    background: linear-gradient(-45deg, red, blue, yellow, green);
+    background-size: 400% 400%;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+} */
+
+/* @keyframes blob {
+  0% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-50px) scale(1.1); }
+  66% { transform: translate(-20px,20px) scale(0.9); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 1s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+} */
