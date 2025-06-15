@@ -7,8 +7,8 @@ function App() {
   console.log("hey therer")
   const projectCards = Object.keys(projectList).map((path) => {
     const folder = path.split('/')[2] // e.g. "01ViteReact"
-    console.log("hello world")
-    console.log(folder)
+    // console.log("hello world")
+    // console.log(folder)
     return (
       <Link
         key={folder}
