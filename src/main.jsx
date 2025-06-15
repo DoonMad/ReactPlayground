@@ -14,12 +14,10 @@ const routes = Object.entries(modules).map(([path, module]) => {
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
         {routes}
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
 )
