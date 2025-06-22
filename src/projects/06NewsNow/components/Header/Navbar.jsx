@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -8,39 +8,39 @@ function Navbar() {
             className='flex flex-row gap-3 py-4 place-content-center w-[80%] font-semibold text-lg'
         >
             <Link 
-                to={{ pathname: './' }}
+                to={{ pathname: '/06NewsNow/' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >General</Link>
             <Link 
-                to={{ pathname: './world' }}
+                to={{ pathname: '/06NewsNow/world' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >World</Link>
             <Link 
-                to={{ pathname: './nation' }}
+                to={{ pathname: '/06NewsNow/nation' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Nation</Link>
             <Link 
-                to={{ pathname: './business' }}
+                to={{ pathname: '/06NewsNow/business' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Business</Link>
             <Link 
-                to={{ pathname: './technology' }}
+                to={{ pathname: '/06NewsNow/technology' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Technology</Link>
             <Link 
-                to={{ pathname: './entertainment' }}
+                to={{ pathname: '/06NewsNow/entertainment' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Entertainment</Link>
             <Link 
-                to={{ pathname: './sports' }}
+                to={{ pathname: '/06NewsNow/sports' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Sports</Link>
             <Link 
-                to={{ pathname: './science' }}
+                to={{ pathname: '/06NewsNow/science' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Science</Link>
             <Link 
-                to={{ pathname: './health' }}
+                to={{ pathname: '/06NewsNow/health' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Health</Link>
             <li>
