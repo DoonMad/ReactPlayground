@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { LANGUAGES, COUNTRIES } from '../../constants';
 
-function Navbar() {
+function Navbar({onFilterChange}) {
+    const [lang, setLang] = useState("en");
+    const [country, setCountry] = useState("in");
+    
+    function handleLangChange(e){
+        setLang(e.target.value);
+        onFilterChange(e.target.value, country);
+    }
+    function handleCountryChange(e){
+        setCountry(e.target.value);
+        onFilterChange(lang, e.target.value);
+    }
+
   return (
     <nav className='flex flex-col place-items-center'>
         <ul
@@ -43,24 +56,32 @@ function Navbar() {
                 to={{ pathname: '/06NewsNow/health' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
             >Health</Link>
-            <li>
-                <select name="country" id="country" className='bg-[rgba(255,0,0,0.5)]'>
-                    <option value="any">All</option>
-                    <option value="in">India</option>
-                    <option value="us">USA</option>
-                    <option value="uk">UK</option>
-                    <option value="israel">Israel</option>
-                </select>
-            </li>
-            <li>
-                <select name="lang" id="lang" className='bg-[rgba(255,0,0,0.5)]'>
-                    <option value="en">English</option>
-                    <option value="hi">Hindi</option>
-                    <option value="mr">Marathi</option>
-                    <option value="gj">Gujarathi</option>
-                    <option value="sp">Spanish</option>
-                </select>
-            </li>
+            <select 
+                name="country" 
+                id="country" 
+                className='bg-[rgba(255,0,0,0.5)] max-w-26' 
+                onChange={handleCountryChange}
+                value={country}
+            >
+                {COUNTRIES.map((country) => {
+                    return (
+                        <option value={country.value}>{country.name}</option>
+                    )
+                })}
+            </select>
+            <select 
+                name="lang" 
+                id="lang" 
+                className='bg-[rgba(255,0,0,0.5)] max-w-26' 
+                onChange={handleLangChange}
+                value={lang}
+            >
+                {LANGUAGES.map((lang) => {
+                    return (
+                        <option value={lang.value}>{lang.name}</option>
+                    )
+                })}
+            </select>
         <div className='flex justify-center items-center gap-3'>
             <input type="text" name="search" id="search" className='bg-white text-black w-45'/>
             <button type="submit" className='bg-black cursor-pointer px-1 rounded hover:bg-gray-800 active:bg-gray-600'>Search</button>

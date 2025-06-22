@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 
-function Header() {
+function Header({onFilterChange}) {
 
     const getDate = () => {
         const date = new Date();
@@ -30,7 +30,7 @@ function Header() {
             </div>
         </div>
 
-        <Navbar />
+        <Navbar onFilterChange={onFilterChange}/>
     </header>
   )
 }
