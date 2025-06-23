@@ -13,6 +13,7 @@ function Header({onFilterChange}) {
         });
         return formattedDate;
     }
+    
   return (
     <header className='flex flex-col bg-red-500 w-[1380px] shadow-black shadow-lg'>
         <div className='flex flex-row place-content-around place-items-center'>

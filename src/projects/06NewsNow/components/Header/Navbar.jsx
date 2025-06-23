@@ -65,7 +65,7 @@ function Navbar({onFilterChange}) {
             >
                 {COUNTRIES.map((country) => {
                     return (
-                        <option value={country.value}>{country.name}</option>
+                        <option key={country.value} value={country.value}>{country.name}</option>
                     )
                 })}
             </select>
@@ -78,7 +78,7 @@ function Navbar({onFilterChange}) {
             >
                 {LANGUAGES.map((lang) => {
                     return (
-                        <option value={lang.value}>{lang.name}</option>
+                        <option key={lang.value} value={lang.value}>{lang.name}</option>
                     )
                 })}
             </select>
