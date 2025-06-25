@@ -42,7 +42,7 @@ function Navbar({ onFilterChange }) {
                         className={({ isActive }) =>
                             `text-sm sm:text-base px-3 py-1 rounded ${
                                 isActive
-                                    ? 'text-red-700 dark:text-red-500 font-bold underline'
+                                    ? 'text-red-700 dark:text-red-500 font-bold'
                                     : 'text-neutral-800 dark:text-white hover:text-red-500'
                             }`
                         }
