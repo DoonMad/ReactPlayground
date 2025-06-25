@@ -1,114 +1,98 @@
 import React, { useState } from 'react';
-import { NavLink, Router, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom';
 import { LANGUAGES, COUNTRIES } from '../../constants';
 
-function Navbar({onFilterChange}) {
+function Navbar({ onFilterChange }) {
     const [lang, setLang] = useState("en");
     const [country, setCountry] = useState("in");
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
-    
-    function handleLangChange(e){
+
+    const handleLangChange = (e) => {
         setLang(e.target.value);
         onFilterChange(e.target.value, country);
     }
-    function handleCountryChange(e){
+
+    const handleCountryChange = (e) => {
         setCountry(e.target.value);
         onFilterChange(lang, e.target.value);
     }
-    function handleSearch(){
+
+    const handleSearch = () => {
         if (searchTerm.trim() !== '') {
             navigate(`/06NewsNow/search?q=${encodeURIComponent(searchTerm.trim())}`);
             setSearchTerm("");
+        } else {
+            alert("Empty searches not allowed");
         }
-        else alert("Empty searches now allowed");
     }
 
-  return (
-    <nav className='flex flex-col place-items-center'>
-        <ul
-            className='flex flex-row gap-3 py-4 place-content-center w-[80%] font-semibold text-lg'
-        >
-            <NavLink 
-                to={{ pathname: '/06NewsNow/' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >General</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/world' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >World</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/nation' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Nation</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/business' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Business</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/technology' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Technology</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/entertainment' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Entertainment</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/sports' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Sports</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/science' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Science</NavLink>
-            <NavLink 
-                to={{ pathname: '/06NewsNow/health' }}
-                className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Health</NavLink>
-            <select 
-                name="country" 
-                id="country" 
-                className='bg-[rgba(255,0,0,0.5)] max-w-26' 
-                onChange={handleCountryChange}
-                value={country}
-            >
-                {COUNTRIES.map((country) => {
-                    return (
-                        <option key={country.value} value={country.value}>{country.name}</option>
-                    )
-                })}
-            </select>
-            <select 
-                name="lang" 
-                id="lang" 
-                className='bg-[rgba(255,0,0,0.5)] max-w-26' 
-                onChange={handleLangChange}
-                value={lang}
-            >
-                {LANGUAGES.map((lang) => {
-                    return (
-                        <option key={lang.value} value={lang.value}>{lang.name}</option>
-                    )
-                })}
-            </select>
-        <div className='flex justify-center items-center gap-3'>
-            <input 
-                type="text" 
-                name="search" 
-                id="search" 
-                className='bg-white text-black w-45'
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button 
-                type="submit" 
-                className='bg-black cursor-pointer px-1 rounded hover:bg-gray-800 active:bg-gray-600'
-                onClick={handleSearch}
-            >Search</button>
-        </div>
-        </ul>
-    </nav>
-  )
+    const categories = [
+        'general', 'world', 'nation', 'business', 'technology',
+        'entertainment', 'sports', 'science', 'health'
+    ];
+
+    return (
+        <nav className="mt-4 w-full">
+            <div className="flex flex-wrap justify-center gap-4 px-2">
+                {categories.map((cat) => (
+                    <NavLink
+                        key={cat}
+                        to={`/06NewsNow/${cat}`}
+                        className={({ isActive }) =>
+                            `text-sm sm:text-base px-3 py-1 rounded ${
+                                isActive
+                                    ? 'text-red-700 dark:text-red-500 font-bold underline'
+                                    : 'text-neutral-800 dark:text-white hover:text-red-500'
+                            }`
+                        }
+                    >
+                        {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </NavLink>
+                ))}
+
+                <select
+                    onChange={handleCountryChange}
+                    value={country}
+                    className="text-sm px-2 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-black dark:text-white"
+                >
+                    {COUNTRIES.map((country) => (
+                        <option key={country.value} value={country.value}>
+                            {country.name}
+                        </option>
+                    ))}
+                </select>
+
+                <select
+                    onChange={handleLangChange}
+                    value={lang}
+                    className="text-sm px-2 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-black dark:text-white"
+                >
+                    {LANGUAGES.map((lang) => (
+                        <option key={lang.value} value={lang.value}>
+                            {lang.name}
+                        </option>
+                    ))}
+                </select>
+
+                <div className="flex gap-1 items-center">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search..."
+                        className="px-2 py-1 rounded border border-neutral-300 dark:border-neutral-600 text-black dark:text-white bg-white dark:bg-neutral-800"
+                    />
+                    <button
+                        onClick={handleSearch}
+                        className="px-3 py-1 rounded bg-red-600 text-white hover:bg-red-700"
+                    >
+                        Search
+                    </button>
+                </div>
+            </div>
+        </nav>
+    );
 }
 
-export default Navbar
+export default Navbar;
