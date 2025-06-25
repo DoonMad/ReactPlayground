@@ -6,7 +6,6 @@ export const useNews = () => {
     const [error, setError] = useState(null);
 
     const GNEWS_API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
-    // console.log(GNEWS_API_KEY);
 
     const fetchNews = useCallback(
         async (category, lang="en", country="in") => {
@@ -30,5 +29,27 @@ export const useNews = () => {
             }
         }, [GNEWS_API_KEY]);
 
-    return { news, loading, error, fetchNews };
+    const searchNews = useCallback(
+        async (searchTerm, lang="en", country="in") => {
+            setLoading(true);
+            try {
+                const response = await fetch(`https://gnews.io/api/v4//search?q=${searchTerm}&apikey=${GNEWS_API_KEY}&lang=${lang}&country=${country}`
+                );
+    
+                if(response.status !== 200) {
+                    throw new Error('Failed to fetch news');
+                }
+                const data = await response.json();
+                console.log("from searchNews: ", data.articles)
+                setNews(data.articles);
+            }
+            catch (error) {
+                setError(error);
+            }
+            finally{
+                setLoading(false);
+            }
+        }, [GNEWS_API_KEY]);
+
+    return { news, loading, error, fetchNews, searchNews };
 }

@@ -5,6 +5,7 @@ function NewsNowApp() {
   return (
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/search" element={<App />} />
         <Route path="/:category" element={<App />} />
       </Routes>
   )

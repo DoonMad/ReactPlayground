@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink, Router, useNavigate } from 'react-router-dom'
 import { LANGUAGES, COUNTRIES } from '../../constants';
 
 function Navbar({onFilterChange}) {
     const [lang, setLang] = useState("en");
     const [country, setCountry] = useState("in");
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
     
     function handleLangChange(e){
         setLang(e.target.value);
@@ -14,48 +16,55 @@ function Navbar({onFilterChange}) {
         setCountry(e.target.value);
         onFilterChange(lang, e.target.value);
     }
+    function handleSearch(){
+        if (searchTerm.trim() !== '') {
+            navigate(`/06NewsNow/search?q=${encodeURIComponent(searchTerm.trim())}`);
+            setSearchTerm("");
+        }
+        else alert("Empty searches now allowed");
+    }
 
   return (
     <nav className='flex flex-col place-items-center'>
         <ul
             className='flex flex-row gap-3 py-4 place-content-center w-[80%] font-semibold text-lg'
         >
-            <Link 
+            <NavLink 
                 to={{ pathname: '/06NewsNow/' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >General</Link>
-            <Link 
+            >General</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/world' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >World</Link>
-            <Link 
+            >World</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/nation' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Nation</Link>
-            <Link 
+            >Nation</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/business' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Business</Link>
-            <Link 
+            >Business</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/technology' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Technology</Link>
-            <Link 
+            >Technology</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/entertainment' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Entertainment</Link>
-            <Link 
+            >Entertainment</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/sports' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Sports</Link>
-            <Link 
+            >Sports</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/science' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Science</Link>
-            <Link 
+            >Science</NavLink>
+            <NavLink 
                 to={{ pathname: '/06NewsNow/health' }}
                 className='mx-1/2 p-1 px-2 hover:text-blue-400'
-            >Health</Link>
+            >Health</NavLink>
             <select 
                 name="country" 
                 id="country" 
@@ -83,8 +92,19 @@ function Navbar({onFilterChange}) {
                 })}
             </select>
         <div className='flex justify-center items-center gap-3'>
-            <input type="text" name="search" id="search" className='bg-white text-black w-45'/>
-            <button type="submit" className='bg-black cursor-pointer px-1 rounded hover:bg-gray-800 active:bg-gray-600'>Search</button>
+            <input 
+                type="text" 
+                name="search" 
+                id="search" 
+                className='bg-white text-black w-45'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button 
+                type="submit" 
+                className='bg-black cursor-pointer px-1 rounded hover:bg-gray-800 active:bg-gray-600'
+                onClick={handleSearch}
+            >Search</button>
         </div>
         </ul>
     </nav>

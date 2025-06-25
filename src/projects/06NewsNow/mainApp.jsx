@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import { useNews } from './api'
 import ArticleCard from './components/Article/ArticleCard'
@@ -8,8 +8,10 @@ function App() {
     const category = useParams().category || "general";
     const [country, setCountry] = useState("in");
     const [lang, setLang] = useState("en");
+    const query = new URLSearchParams(useLocation().search);
+    const searchTerm = query.get('q');
 
-    const { news, loading, error, fetchNews } = useNews();
+    const { news, loading, error, fetchNews, searchNews } = useNews();
 
     const handleFilterChange = (newLang, newCountry) => {
         setCountry(newCountry);
@@ -17,8 +19,13 @@ function App() {
     }
 
     useEffect(() => {
-        fetchNews(category, lang, country);
-    }, [category, lang, country, fetchNews])
+        if(searchTerm){
+            searchNews(searchTerm, lang, country);
+        }
+        else{
+            fetchNews(category, lang, country);
+        }
+    }, [searchTerm, category, lang, country, fetchNews, searchNews])
 
 
   return (
